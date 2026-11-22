@@ -1,43 +1,28 @@
-===========================================================
-HANDWRITTEN DIGIT RECOGNITION (CNN + ViT)
-Student: Usman Rasheed
-Roll No: TRN 2026 000313
-===========================================================
+# Handwritten Digit Recognition (CNN + ViT)
 
-INSTALL DEPENDENCIES (one time):
-   pip install torch torchvision scikit-learn streamlit pillow numpy matplotlib
+**Student:** Usman Rasheed  
+**Roll No:** TRN 2026 000313  
+**Module:** AI Engineering Bootcamp — Module 04 Sunday Project
 
-FOLDER CONTENTS:
-   - app.py                  Streamlit app
-   - cnn_digit.pt            Trained CNN weights
-   - vit_digit.pt            Trained ViT weights
-   - preprocess_meta.json    Preprocessing settings
-   - Digit_Project.ipynb     Training notebook
-   - evaluation_report.md    Test accuracy, F1, confusion matrices
-   - test_images/            200 sample handwritten digits
-   - sample_for_app.png      Demo image
+## Overview
 
-HOW TO RUN THE APP:
-   1. Open terminal in this folder
-   2. Run:  streamlit run app.py
-   3. Open http://localhost:8501 in browser
-   4. Upload any PNG/JPEG containing one handwritten digit
-   5. See CNN and ViT predictions side by side
+A complete handwritten digit recognition system that trains **two models side by side** — a Convolutional Neural Network (CNN) and a Vision Transformer (ViT) — on the `sklearn.datasets.load_digits()` 8×8 dataset, then deploys both in a **Streamlit web app** that accepts uploaded photos and shows predictions from each model.
 
-HOW TO RETRAIN (optional):
-   1. Open Digit_Project.ipynb in Google Colab
-   2. Run all cells top to bottom
-   3. Downloads cnn_digit.pt, vit_digit.pt, preprocess_meta.json at the end
+## Features
 
-ERROR HANDLING TESTS:
-   - Blank image  → rejected with "Blank image (no strokes)"
-   - Broken file  → rejected with "could not be opened as an image"
-   - No upload    → shows "Waiting for an image"
+- **CNN:** 2 conv layers + 2 fully-connected layers → 10-class logits
+- **ViT:** 16 patches of 2×2 → patch embedding (32-dim) + positional encoding + TransformerEncoder (2 layers, 4 heads) → 10-class head
+- **Fair comparison:** identical stratified train/valid/test split (60/20/20) for both models
+- **Upload pipeline:** Pillow → grayscale → invert bright background → crop → center → resize 8×8 → ÷255 → predict
+- **Error handling:** rejects missing, blank, and unreadable files without crashing
+- **Fresh-launch ready:** loads saved checkpoints; no retraining inside the app
 
-NOTES:
-   - Training data: sklearn.datasets.load_digits() only
-   - Both models trained on identical stratified 60/20/20 split
-   - Real MNIST test images used only for demo (not training)
-   - Model input: 8x8 grayscale, values 0-1
-   - Prepared 8x8 preview shown in the app before prediction
-===========================================================
+## Results (test set)
+
+| Model | Test Accuracy | Macro F1 |
+|---|---|---|
+| Majority baseline | 0.10 | — |
+| CNN | 0.9444 | 0.9445 |
+| ViT | 0.9278 | 0.9279 |
+
+## Project Structure
