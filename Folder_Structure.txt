@@ -1,0 +1,16 @@
+Usman_Rasheed_TRN-2026-000313/
+│
+├── app.py                          ← Streamlit app 
+├── cnn_digit.pt                    ← CNN weights 
+├── vit_digit.pt                    ← ViT weights 
+├── preprocess_meta.json            ← Preprocessing settings 
+├── Digit_Project.ipynb             ← Colab notebook 
+├── evaluation_report.md            ← Accuracy, F1, confusion matrices
+├── RUN_INSTRUCTIONS.txt            ← How to run
+├── make_test_images_real.py        ← Script that generated test images
+├── sample_for_app.png              ← Demo image
+│
+└── test_images/                    ← 10 real handwritten digits + negatives
+    ├── digit_0.png ... digit_9.png
+    ├── blank.png
+    └── broken.png
